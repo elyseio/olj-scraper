@@ -1,4 +1,4 @@
-#!/home/kyretof/Project/python-web-scrape/scrape-venv/bin/python
+#!/home/kyretof/Project/python-web-scrape/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
