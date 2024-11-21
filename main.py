@@ -6,7 +6,7 @@ def get_job_query():
     Prompt for search query and return it formatted: query+query
     '''
     job_q = input('job search: ').lower()
-    print(f'\nSearching for: {job_q}.....\n')
+    print(f'\nSearching for: {job_q}\n')
     return job_q.replace(' ', '+')
 
 def get_full_dn(base_url, search_query):
