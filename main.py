@@ -19,15 +19,14 @@ def get_full_dn(base_url, search_query):
 
 def scrape_jobs(site_url, base_url, user_agent):
     '''Scrape job postings from the website'''
-    try:
         # Make HTTP Request
-        headers = {
-            'User-Agent': user_agent
-        }
-        response = requests.get(site_url, headers=headers)
-        response.raise_for_status() # Raise an error for HTTP issues
-    except requests.exceptions.RequestException as e:
-        print(f'Error requesting site: {e}')
+    headers = {
+        'User-Agent': user_agent
+    }
+    response = requests.get(site_url, headers=headers)
+
+    if response.status_code != 200:
+        print('Error requesting site:')
         return
 
     soup = BeautifulSoup(response.text, 'lxml')
