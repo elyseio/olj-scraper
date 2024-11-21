@@ -19,15 +19,23 @@ def get_full_dn(base_url, search_query):
 
 def scrape_jobs(site_url, base_url, user_agent):
     '''Scrape job postings from the website'''
-        # Make HTTP Request
-    headers = {
-        'User-Agent': user_agent
-    }
-    response = requests.get(site_url, headers=headers)
-
-    if response.status_code != 200:
-        print('Error requesting site:')
+    # Make HTTP Request
+    try:
+        # Random User-Agent
+        headers = {
+            'User-Agent': user_agent
+        }
+        response = requests.get(site_url, headers=headers, timeout=10)
+        response.raise_for_status() # Raise an HTTPError for bad status codes (4xx, 5xx) 
+    except requests.exceptions.Timeout:
+        print("Request timed out. Please check your internet connection or try again later.")
         return
+    except requests.exceptions.RequestException as e:
+        # Catch all other request-related exceptions
+        print(f"Error requesting site: {e}")
+        return
+
+
 
     soup = BeautifulSoup(response.text, 'lxml')
     job_board = soup.find_all('div', class_='jobpost-cat-box latest-job-post card-hover-default')
