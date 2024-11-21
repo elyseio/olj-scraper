@@ -1,5 +1,7 @@
-from bs4 import BeautifulSoup
+import random
+from user_agents import user_agents
 import requests
+from bs4 import BeautifulSoup
 
 def get_job_query():
     '''
@@ -15,11 +17,14 @@ def get_full_dn(base_url, search_query):
     '''
     return f'{base_url}/jobseekers/jobsearch?jobkeyword={search_query}'
 
-def scrape_jobs(site_url, base_url):
+def scrape_jobs(site_url, base_url, user_agent):
     '''Scrape job postings from the website'''
     try:
         # Make HTTP Request
-        response = requests.get(site_url)
+        headers = {
+            'User-Agent': user_agent
+        }
+        response = requests.get(site_url, headers=headers)
         response.raise_for_status() # Raise an error for HTTP issues
     except requests.exceptions.RequestException as e:
         print(f'Error requesting site: {e}')
@@ -47,16 +52,19 @@ def scrape_jobs(site_url, base_url):
 def main():
     """Main function to run the job scraper."""
     # Domain Name
-    dn = 'https://onlinejobs.ph'
+    domain_name = 'https://onlinejobs.ph'
 
     # Get job query
     job_query = get_job_query()
 
     # Full dn + search query
-    full_dn = get_full_dn(dn, job_query)
+    full_domain_name = get_full_dn(domain_name, job_query)
+
+    # Random User-Agent
+    user_agent = random.choice(user_agents)
 
     # Perform scrape
-    scrape_jobs(full_dn, dn)
+    scrape_jobs(full_domain_name, domain_name, user_agent)
 
 if __name__ == '__main__':
     main()
