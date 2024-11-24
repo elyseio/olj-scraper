@@ -7,13 +7,13 @@ def get_job_query():
     '''
     Prompt for search query and return it formatted: query+query
     '''
-    job_q = input('job search: ').lower()
-    print(f'\nSearching for: {job_q}\n')
+    job_q = input('Enter job search query: ').lower()
+    print(f'\n[INFO] Searching for: {job_q}\n')
     return job_q.replace(' ', '+')
 
 def get_full_dn(base_url, search_query):
     '''
-    Return the full dn
+    Return the full dn (str)
     '''
     return f'{base_url}/jobseekers/jobsearch?jobkeyword={search_query}'
 
@@ -25,39 +25,44 @@ def scrape_jobs(site_url, base_url, user_agent):
         headers = {
             'User-Agent': user_agent
         }
+        print(f"[INFO] Sending request to {site_url}...")
         response = requests.get(site_url, headers=headers, timeout=10)
-        response.raise_for_status() # Raise an HTTPError for bad status codes (4xx, 5xx) 
+        response.raise_for_status()  # Raise an HTTPError for bad status codes (4xx, 5xx)
     except requests.exceptions.Timeout:
-        print("Request timed out. Please check your internet connection or try again later.")
+        print("[ERROR] Request timed out. Please check your internet connection or try again later.")
         return
     except requests.exceptions.RequestException as e:
         # Catch all other request-related exceptions
-        print(f"Error requesting site: {e}")
+        print(f"[ERROR] Error requesting site: {e}")
         return
-
-
 
     soup = BeautifulSoup(response.text, 'lxml')
     job_board = soup.find_all('div', class_='jobpost-cat-box latest-job-post card-hover-default')
 
     if not job_board:
-        print("No jobs found")
+        print("[INFO] No jobs found matching your query.")
         return
 
+    print("\n[INFO] Found the following job postings:")
     for job in job_board:
         # Extract Job Details
         title = job.find('h4', class_='fs-16 fw-700').get_text(strip=True)
         link = job.find('a')['href']
         full_link = f'{base_url}{link}'
 
-        # Print job details
-        print("=====================================================================")
-        print(f"Title: {title}")
-        print(f"Link: {full_link}")
+        # Print job details in a clear, uniform format
+        print("\n=====================================================================")
+        print(f"[JOB TITLE] {title}")
+        print(f"[LINK] {full_link}")
         print("=====================================================================\n")
 
 def main():
-    """Main function to run the job scraper."""
+    """
+    Main function to run the job scraper
+    - Defines domain_name (str): contains the domain name
+
+
+    """
     # Domain Name
     domain_name = 'https://onlinejobs.ph'
 
