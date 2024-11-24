@@ -51,10 +51,13 @@ def scrape_jobs(site_url, base_url, user_agent):
         full_link = f'{base_url}{link}'
 
         # Print job details in a clear, uniform format
-        print("\n=====================================================================")
+        dash_num = 84
+        print()
+        print("=" * dash_num)
         print(f"[JOB TITLE] {title}")
         print(f"[LINK] {full_link}")
-        print("=====================================================================\n")
+        print("=" * dash_num)
+        print
 
 def main():
     """
