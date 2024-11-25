@@ -25,7 +25,7 @@ def scrape_jobs(site_url, base_url, user_agent):
         headers = {
             'User-Agent': user_agent
         }
-        print(f"[INFO] Sending request to {site_url}...")
+        print(f"[INFO] Sending request to {site_url}")
         response = requests.get(site_url, headers=headers, timeout=10)
         response.raise_for_status()  # Raise an HTTPError for bad status codes (4xx, 5xx)
     except requests.exceptions.Timeout:

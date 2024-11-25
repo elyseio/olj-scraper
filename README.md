@@ -17,7 +17,7 @@ Enter job search query: web
 
 [INFO] Searching for: web
 
-[INFO] Sending request to https://onlinejobs.ph/jobseekers/jobsearch?jobkeyword=web...
+[INFO] Sending request to https://onlinejobs.ph/jobseekers/jobsearch?jobkeyword=web
 
 [INFO] Found the following job postings:
 
