@@ -49,6 +49,8 @@ def scrape_jobs(site_url, base_url, user_agent):
         title = job.find('h4', class_='fs-16 fw-700').get_text(strip=True)
         link = job.find('a')['href']
         full_link = f'{base_url}{link}'
+        date_p = job.find('p', class_='fs-13 mb-0')
+        date_posted = date_p.find('em').get_text()
 
         # Print job details in a clear, uniform format
         dash_num = 84
@@ -56,6 +58,7 @@ def scrape_jobs(site_url, base_url, user_agent):
         print("=" * dash_num)
         print(f"[JOB TITLE] {title}")
         print(f"[LINK] {full_link}")
+        print(f"[Date] {date_posted}")
         print("=" * dash_num)
         print
 
