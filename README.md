@@ -27,11 +27,13 @@ Enter job search query: web
 ====================================================================================
 [JOB TITLE] Backend Magento Developer (Web Developer)Full Time
 [LINK] https://onlinejobs.ph/jobseekers/job/1268872
+[Date] Posted on Jul 06, 2025
 ====================================================================================
 
 ====================================================================================
 [JOB TITLE] Tech Lead - Senior Magento Web Developer (Full Time)Full Time
 [LINK] https://onlinejobs.ph/jobseekers/job/1268798
+[Date] Posted on Jul 06, 2025
 ====================================================================================
 
 ...
